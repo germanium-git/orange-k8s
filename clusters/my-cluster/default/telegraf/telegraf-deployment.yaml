@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telegraf-deployment
+  namespace: telegraf
+spec:
+  selector:
+    matchLabels:
+      app: telegraf
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: telegraf
+    spec:
+      containers:
+        - image: telegraf:1.10.0
+          name: telegraf
+          volumeMounts:
+            - mountPath: /etc/telegraf/telegraf.conf
+              name: telegraf-config
+              subPath: telegraf.conf
+              readOnly: true
+            - mountPath: /usr/share/snmp
+              name: telegraf-mibs-pv-storage
+              readOnly: true
+          envFrom:
+            - secretRef:
+                name: telegraf-secrets
+      volumes:
+        - name: telegraf-config
+          configMap:
+            name: telegraf-config
+        - name: telegraf-mibs-pv-storage
+          persistentVolumeClaim:
+            claimName: telegraf-mibs-pv-claim
