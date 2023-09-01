@@ -1,0 +1,70 @@
+apiVersion: v1
+
+kind: ConfigMap
+metadata:
+  name: telegraf-config
+  namespace: telegraf
+data:
+  telegraf.conf: |+
+    # Telegraf Configuration
+    #
+    # Telegraf is entirely plugin driven. All metrics are gathered from the
+    # declared inputs, and sent to the declared outputs.
+    #
+    # Plugins must be declared in here to be active.
+    # To deactivate a plugin, comment out the name and any variables.
+    #
+    # Use 'telegraf -config telegraf.conf -test' to see what metrics a config
+    # file would generate.
+    #
+    # Environment variables can be used anywhere in this config file, simply prepend
+    # them with $. For strings the variable must be within quotes (ie, "$STR_VAR"),
+    # for numbers and booleans they should be plain (ie, $INT_VAR, $BOOL_VAR)
+
+
+    # Global tags can be specified here in key="value" format.
+    [global_tags]
+      app = "snmp"
+      hostname = "$HOSTNAME"
+
+    # Configuration for telegraf agent
+    [agent]
+      interval = "30s"
+
+    ###############################################################################
+    #                            OUTPUT PLUGINS                                   #
+    ###############################################################################
+
+    # Configuration for sending metrics to InfluxDB
+    [[outputs.influxdb_v2]]
+      urls = ["https://apollo.germanium.cz:8086"]
+      token = "$INFLUXDB_TOKEN"
+      organization = "Germanium"
+      bucket = "Network"
+      insecure_skip_verify = true
+
+    ###############################################################################
+    #                            INPUT PLUGINS                                    #
+    ###############################################################################
+
+    # Read metrics about cpu usage
+    [[inputs.snmp]]
+    agents = [ "172.31.1.1:161" ]
+    version = 2
+    community = "public"
+    name = "snmp"
+
+    [[inputs.snmp.field]]
+      name = "hostname"
+      oid = "RFC1213-MIB::sysName.0"
+      is_tag = true
+
+    [[inputs.snmp.table]]
+      name = "snmp"
+      inherit_tags = [ "hostname" ]
+      oid = "IF-MIB::ifXTable"
+
+      [[inputs.snmp.table.field]]
+        name = "ifName"
+        oid = "IF-MIB::ifName"
+        is_tag = true
