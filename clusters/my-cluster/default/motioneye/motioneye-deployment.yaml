@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  motioneye
+  namespace: motioneye
+  labels:
+    app:  motioneye
+spec:
+  selector:
+    matchLabels:
+      app: motioneye
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app:  motioneye
+    spec:
+      containers:
+      - name:  motioneye
+        image:  ccrisan/motioneye:master-armhf
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        env:
+        - name: hostname
+          value: motioneye
+        ports:
+        - containerPort: 8765
+          protocol: TCP
+          name: server
+        volumeMounts:
+        - mountPath: /etc/motioneye
+          name: motioneye-etc-pv-storage
+        - mountPath: /var/lib/motioneye
+          name: motioneye-lib-pv-storage
+      volumes:
+      - name: motioneye-lib-pv-storage
+        persistentVolumeClaim:
+          claimName: motioneye-lib-pv-claim
+      - name: motioneye-etc-pv-storage
+        persistentVolumeClaim:
+          claimName: motioneye-etc-pv-claim
+      restartPolicy: Always
