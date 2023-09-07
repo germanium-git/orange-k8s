@@ -47,7 +47,7 @@ data:
     #                            INPUT PLUGINS                                    #
     ###############################################################################
 
-    # Read metrics about cpu usage
+    # Read metrics about network interfaces and the resopective traffic
     [[inputs.snmp]]
     agents = [ "172.31.1.1:161" ]
     version = 2
@@ -68,3 +68,74 @@ data:
         name = "ifName"
         oid = "IF-MIB::ifName"
         is_tag = true
+
+    # Read metrics about the wireless interface from the LTE modem
+    [[inputs.snmp]]
+    agents = [ "192.168.1.1:161" ]
+    version = 2
+    community = "public"
+
+    # Signal strength level
+    [[inputs.snmp.field]]
+      name = "mSignal"
+      oid = ".1.3.6.1.4.1.48690.2.2.1.12.1"
+
+    # Current mobile network operator
+    [[inputs.snmp.field]]
+      name = "mOperator"
+      oid = ".1.3.6.1.4.1.48690.2.2.1.13.1"
+
+    # Mobile operator number (MCC+MNC)
+    [[inputs.snmp.field]]
+      name = "mOperatorNumber"
+      oid = ".1.3.6.1.4.1.48690.2.2.1.14.1"
+
+    # Mobile data connection state
+    [[inputs.snmp.field]]
+      name = "mConnectionState"
+      oid = ".1.3.6.1.4.1.48690.2.2.1.15.1"
+
+    # Mobile data connection type
+    [[inputs.snmp.field]]
+      name = "mConnectionType"
+      oid = ".1.3.6.1.4.1.48690.2.2.1.16.1"
+
+    # Modem's temperature in 0.1 degrees Celsius
+    [[inputs.snmp.field]]
+      name = "mConnectionType"
+      oid = ".1.3.6.1.4.1.48690.2.2.1.17.1"
+
+    # Cell (Base transceiver station) ID
+    [[inputs.snmp.field]]
+      name = "mCellID"
+      oid = ".1.3.6.1.4.1.48690.2.2.1.18.1"
+
+    # SINR value in dB
+    [[inputs.snmp.field]]
+      name = "mSINR"
+      oid = ".1.3.6.1.4.1.48690.2.2.1.19.1"
+
+    # RSRP value in dBm
+    [[inputs.snmp.field]]
+      name = "mRSRP"
+      oid = ".1.3.6.1.4.1.48690.2.2.1.20.1"
+
+    # RSRQ value in dB
+    [[inputs.snmp.field]]
+      name = "mRSRQ"
+      oid = ".1.3.6.1.4.1.48690.2.2.1.21.1"
+
+    # Total bytes sent
+    [[inputs.snmp.field]]
+      name = "mSent"
+      oid = ".1.3.6.1.4.1.48690.2.2.1.22.1"
+
+    # Total bytes received
+    [[inputs.snmp.field]]
+      name = "mReceived"
+      oid = ".1.3.6.1.4.1.48690.2.2.1.23.1"
+
+    # Modem IP address(es)
+    [[inputs.snmp.field]]
+      name = "mIP"
+      oid = ".1.3.6.1.4.1.48690.2.2.1.24.1"
