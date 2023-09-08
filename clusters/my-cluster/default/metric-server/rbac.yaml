@@ -1,5 +1,4 @@
-# 
-rbac.yaml
+# rbac.yaml
 ---
 apiVersion: v1
 kind: ServiceAccount
