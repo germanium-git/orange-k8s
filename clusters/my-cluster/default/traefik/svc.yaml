@@ -5,20 +5,21 @@ metadata:
   name: traefik
   namespace: traefik
   labels:
-    app.kubernetes.io/instance: traefik
-    app.kubernetes.io/name: traefik
+    k8s-app: traefik-ingress-lb
+    name: traefik-ingress-lb
 spec:
   selector:
-    app.kubernetes.io/instance: traefik
-    app.kubernetes.io/name: traefik
+    k8s-app: traefik-ingress-lb
+    name: traefik-ingress-lb
   type: LoadBalancer
   externalTrafficPolicy: Local
   ports:
-    - port: 80
-      name: web
-      targetPort: web
+    - name: web
+      port: 8000
       protocol: TCP
-    - port: 443
-      name: websecure
-      targetPort: websecure
+    - name: websecure
+      port: 8443
+      protocol: TCP
+    - name: traefik
+      port: 9000
       protocol: TCP
