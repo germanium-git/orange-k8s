@@ -54,7 +54,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: traefik-ingress
-  namespace: kube-system
+  namespace: traefik
 
 ---
 kind: ClusterRoleBinding
@@ -68,4 +68,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: traefik-ingress
-  namespace: kube-system
+  namespace: traefik
