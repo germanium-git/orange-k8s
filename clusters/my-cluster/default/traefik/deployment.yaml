@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: traefik-ingress
-  namespace: kube-system
+  namespace: traefik
   labels:
     k8s-app: traefik-ingress-lb
 spec:

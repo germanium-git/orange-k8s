@@ -6,7 +6,6 @@ metadata:
   namespace: traefik
   labels:
     k8s-app: traefik-ingress-lb
-    name: traefik-ingress-lb
 spec:
   selector:
     k8s-app: traefik-ingress-lb
