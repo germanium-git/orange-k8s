@@ -16,8 +16,31 @@ rules:
       - watch
   - apiGroups:
       - extensions
+      - networking.k8s.io
     resources:
       - ingresses
+      - ingressclasses
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - extensions
+    resources:
+      - ingresses/status
+    verbs:
+      - update
+  - apiGroups:
+      - traefik.containo.us
+    resources:
+      - middlewares
+      - ingressroutes
+      - traefikservices
+      - ingressroutetcps
+      - ingressrouteudps
+      - tlsoptions
+      - tlsstores
+      - serverstransports
     verbs:
       - get
       - list
