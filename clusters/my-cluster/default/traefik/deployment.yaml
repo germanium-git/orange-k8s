@@ -19,21 +19,55 @@ spec:
       serviceAccountName: traefik-ingress
       terminationGracePeriodSeconds: 60
       containers:
-      - image: traefik
+      - image: traefik:2.5.4
         name: traefik-ingress-lb
         resources:
-            requests:
-              memory: 64Mi
-              cpu: 24m
             limits:
-              memory: 128Mi
-              cpu: 48m
+              cpu: 1000m
+              memory: 1000Mi
+            requests:
+              cpu: 100m
+              memory: 50Mi
         ports:
-        - name: http
-          containerPort: 80
-        - name: admin
-          containerPort: 8080
+          - name: web
+            containerPort: 8000
+            protocol: TCP
+          - name: websecure
+            containerPort: 8443
+            protocol: TCP
+          - name: traefik
+            containerPort: 9000
+            protocol: TCP
         args:
-        - --api
-        - --kubernetes
-        - --logLevel=INFO
+          - "--entryPoints.web.address=:8000/tcp"
+          - "--entryPoints.websecure.address=:8443/tcp"
+          - "--entryPoints.traefik.address=:9000/tcp"
+          - "--api=true"
+          - "--api.dashboard=true"
+          - "--ping=true"
+          - "--providers.kubernetescrd"
+          - "--providers.kubernetescrd.allowCrossNamespace=true"
+        readinessProbe:
+          httpGet:
+            path: /ping
+            port: 9000
+          failureThreshold: 1
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 2
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: 9000
+          failureThreshold: 3
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 2
+        volumeMounts:
+          - mountPath: /data
+            name: storage-volume
+      volumes:
+        - name: storage-volume
+          emptyDir: {}
