@@ -12,6 +12,8 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: jetstack
+  values:
+    installCRDs: true
   interval: 5m0s
   releaseName: cert-manager
   targetNamespace: cert-manager
