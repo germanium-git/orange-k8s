@@ -13,7 +13,7 @@ spec:
       labels:
         app: telegraf
     spec:
-      nodeName: orange1
+      #nodeName: orange1
       containers:
         - image: telegraf:1.10.0
           name: telegraf
