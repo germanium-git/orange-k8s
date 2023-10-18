@@ -14,10 +14,10 @@ spec:
   externalTrafficPolicy: Local
   ports:
     - name: web
-      port: 8000
+      port: 80
       protocol: TCP
     - name: websecure
-      port: 8443
+      port: 443
       protocol: TCP
     - name: traefik
       port: 9000
