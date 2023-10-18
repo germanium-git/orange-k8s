@@ -5,3 +5,4 @@ namespace: rancher
 resources:
   - namespace.yaml
   - rancher-helm-repo.yaml
+  - rancher-helm-release.yaml
