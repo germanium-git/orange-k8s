@@ -19,3 +19,4 @@ spec:
   targetNamespace: cattle-system
   values:
     hostname: rancher.germanium.home
+    tls: external
