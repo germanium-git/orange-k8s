@@ -30,17 +30,17 @@ spec:
               memory: 50Mi
         ports:
           - name: web
-            containerPort: 8000
+            containerPort: 80
             protocol: TCP
           - name: websecure
-            containerPort: 8443
+            containerPort: 443
             protocol: TCP
           - name: traefik
             containerPort: 9000
             protocol: TCP
         args:
-          - "--entryPoints.web.address=:8000/tcp"
-          - "--entryPoints.websecure.address=:8443/tcp"
+          - "--entryPoints.web.address=:80/tcp"
+          - "--entryPoints.websecure.address=:443/tcp"
           - "--entryPoints.traefik.address=:9000/tcp"
           - "--api=true"
           - "--api.dashboard=true"
