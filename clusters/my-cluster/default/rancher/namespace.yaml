@@ -3,5 +3,5 @@ kind: Namespace
 metadata:
   labels:
     certmanager.k8s.io/disable-validation: "true"
-    kubernetes.io/metadata.name: rancher
-  name: rancher
+    kubernetes.io/metadata.name: cattle-system
+  name: cattle-system

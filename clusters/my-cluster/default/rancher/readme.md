@@ -4,7 +4,7 @@
 
 ### Create Helm Source with Flux
 ```
-flux create source helm rancher-server \
+flux create source helm rancher \
     --url https://releases.rancher.com/server-charts/stable \
     --interval 1m0s \
     --export > rancher-helm-repo.yaml
@@ -19,11 +19,13 @@ helm install rancher-<CHART_REPO>/rancher \
 
 ```
 flux create helmrelease rancher \
-    --source=HelmRepository/rancher-server \
-    --chart=rancher-server \
+    --namespace=cattle-system \
+    --source=HelmRepository/rancher.flux-system \
+    --chart=rancher \
+    --chart-version="2.5.7" \
     --release-name=rancher \
-    --target-namespace=rancher \
-    --interval=5m0s \
+    --target-namespace=cattle-system \
+    --interval=1m0s \
     --values=values.yaml \
     --export > rancher-helm-release.yaml
 ```

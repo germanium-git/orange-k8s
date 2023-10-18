@@ -3,17 +3,19 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: rancher
-  namespace: flux-system
+  namespace: cattle-system
 spec:
   chart:
     spec:
-      chart: rancher-server
+      chart: rancher
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: rancher-server
-  interval: 5m0s
+        name: rancher
+        namespace: flux-system
+      version: 2.5.7
+  interval: 1m0s
   releaseName: rancher
-  targetNamespace: rancher
+  targetNamespace: cattle-system
   values:
     hostname: rancher.germanium.home
