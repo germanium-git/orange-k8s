@@ -25,8 +25,8 @@ spec:
         - name: traefik
           image: traefik:2.5.4
           args:
-            - "--entryPoints.web.address=:8000/tcp"
-            - "--entryPoints.websecure.address=:8443/tcp"
+            - "--entryPoints.web.address=:80/tcp"
+            - "--entryPoints.websecure.address=:443/tcp"
             - "--entryPoints.traefik.address=:9000/tcp"
             - "--api=true"
             - "--api.dashboard=true"
