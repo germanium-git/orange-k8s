@@ -48,6 +48,9 @@ spec:
           - "--ping=true"
           - "--providers.kubernetescrd"
           - "--providers.kubernetescrd.allowCrossNamespace=true"
+          - "--log=true"
+          - "--log.level=INFO"
+          - "--accesslog=true"
         readinessProbe:
           httpGet:
             path: /ping
