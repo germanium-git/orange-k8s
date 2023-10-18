@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: rancher
         namespace: flux-system
-      version: 2.7.8
+      version: 2.7.6
   interval: 1m0s
   releaseName: rancher
   targetNamespace: cattle-system
