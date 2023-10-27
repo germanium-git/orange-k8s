@@ -16,3 +16,7 @@ spec:
   interval: 1m0s
   releaseName: traefik
   targetNamespace: traefik-v2
+  values:
+    ingressRoute:
+      dashboard:
+        enabled: false
