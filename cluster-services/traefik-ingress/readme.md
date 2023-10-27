@@ -11,6 +11,20 @@ flux create source helm traefik \
 ```
 
 
+### Create Helm Release with Flux
+
+```
+flux create helmrelease traefik \
+    --namespace=traefik-v2 \
+    --source=HelmRepository/traefik.flux-system \
+    --chart=traefik \
+    --chart-version="2.10.4" \
+    --release-name=traefik \
+    --target-namespace=traefik-v2 \
+    --interval=1m0s \
+    --export > traefik-helm-release2.yaml
+
+
 
 https://doc.traefik.io/traefik/getting-started/install-traefik/#use-the-helm-chart
 

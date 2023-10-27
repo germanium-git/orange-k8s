@@ -2,20 +2,18 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: rancher
-  namespace: cattle-system
+  name: traefik
+  namespace: traefik-v2
 spec:
   chart:
     spec:
-      chart: rancher
+      chart: traefik
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: rancher
+        name: traefik
         namespace: flux-system
-      version: 2.7.6
+      version: 2.10.4
   interval: 1m0s
-  releaseName: rancher
-  targetNamespace: cattle-system
-  values:
-    hostname: rancher.germanium.home
+  releaseName: traefik
+  targetNamespace: traefik-v2
