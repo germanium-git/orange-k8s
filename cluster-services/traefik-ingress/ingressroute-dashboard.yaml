@@ -14,7 +14,7 @@ spec:
       kind: Rule
       middlewares:
         - name: traefik-dashboard-basicauth
-          namespace: traefik
+          namespace: traefik-v2
       services:
         - name: api@internal
           kind: TraefikService
