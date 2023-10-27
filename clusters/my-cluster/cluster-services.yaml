@@ -1,4 +1,17 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
-resources:
-- ../cluster-services/traefik-ingress/base
+metadata:
+  name: cluster-services
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  dependsOn:
+    - name: infra-configs
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./cluster-services
+  prune: true
+  wait: true
+  timeout: 5m0s
