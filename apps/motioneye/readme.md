@@ -51,10 +51,10 @@ If the restore does not work through UI follow the instructions below to make it
 * Copy all the files to the container
 
 ```
-kubectl cp ~/Downloads/motioneye-config/. motioneye/motioneye-6c67667f49-fqwrk:/. -c motioneye
+kubectl cp ~/Downloads/motioneye-config-k8s-orange/. motioneye/motioneye-6c67667f49-h5lt9:/etc/motioneye/ -c motioneye
 ```
 
-* Copy the file sto the mounted PVC. Ignore the error messages about ownership.
+* Copy the files to the mounted PVC. Ignore the error messages about ownership.
 
 ```
 root@motioneye-6c67667f49-t2b5p:/# ls -al /etc/motioneye/
