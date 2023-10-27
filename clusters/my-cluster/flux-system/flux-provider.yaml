@@ -8,5 +8,4 @@ spec:
   channel: fluxcd
   address: https://slack.com/api/chat.postMessage
   secretRef:
-    name: alertmanager-slack-notification
-    namespace: default
+    name: flux-slack-notification

@@ -3,5 +3,6 @@ kind: Kustomization
 resources:
 - gotk-components.yaml
 - gotk-sync.yaml
+- flux-sealedsecret.yaml
 - flux-provider.yaml
 - flux-alert.yaml
