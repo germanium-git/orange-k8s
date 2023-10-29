@@ -10,11 +10,6 @@ flux create source helm rancher \
     --export > rancher-helm-repo.yaml
 ```
 
-helm install rancher-<CHART_REPO>/rancher \
-  --name rancher \
-  --namespace cattle-system \
-  --set hostname=rancher.my.org
-
 ### Create Helm Release with Flux
 
 ```
@@ -22,7 +17,7 @@ flux create helmrelease rancher \
     --namespace=cattle-system \
     --source=HelmRepository/rancher.flux-system \
     --chart=rancher \
-    --chart-version="2.5.7" \
+    --chart-version="2.7.6" \
     --release-name=rancher \
     --target-namespace=cattle-system \
     --interval=1m0s \
