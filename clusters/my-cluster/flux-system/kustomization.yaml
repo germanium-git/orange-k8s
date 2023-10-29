@@ -4,8 +4,8 @@ resources:
 - gotk-components.yaml
 - gotk-sync.yaml
 - flux-sealedsecret.yaml
-- flux-provider.yaml
 - flux-alert.yaml
-- flux-receiver-service.yaml
-- flux-provider.yaml
 - flux-github-receiver.yaml
+- flux-provider.yaml
+- flux-receiver-service.yaml
+- flux-sealedsecret.yaml
