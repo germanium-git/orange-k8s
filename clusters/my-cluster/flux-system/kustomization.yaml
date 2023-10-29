@@ -6,3 +6,6 @@ resources:
 - flux-sealedsecret.yaml
 - flux-provider.yaml
 - flux-alert.yaml
+- flux-receiver-service.yaml
+- flux-provider.yaml
+- flux-github-receiver.yaml
