@@ -7,7 +7,9 @@
 Upload the SNMP MIBs stored in the mibs folder to /var/tmp/telegraf on each K8s node.
 
 ```
-scp -i ~/.ssh/privkey -r mibs username@host:/var/tmp/telegraf
+# scp -i ~/.ssh/privkey -r mibs username@host:/var/tmp/telegraf
+scp -i ~/.ssh/orangePiMac -r mibs petr@172.31.1.51:/var/tmp/telegraf/mibs
+scp -i ~/.ssh/orangePiMac -r mibs petr@172.31.1.52:/var/tmp/telegraf/mibs
 ```
 
 ```
