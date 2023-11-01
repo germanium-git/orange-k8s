@@ -3,6 +3,11 @@ alertmanager:
     type: LoadBalancer
 grafana:
   enabled: false
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    hosts:
+      - grafana.germanium.home
 prometheus:
   service:
     type: LoadBalancer

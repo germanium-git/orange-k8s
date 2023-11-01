@@ -23,6 +23,11 @@ spec:
         type: LoadBalancer
     grafana:
       enabled: false
+      ingress:
+        enabled: true
+        hosts:
+        - grafana.germanium.home
+        ingressClassName: traefik
     prometheus:
       service:
         type: LoadBalancer
