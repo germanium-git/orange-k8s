@@ -22,7 +22,7 @@ spec:
       service:
         type: LoadBalancer
     grafana:
-      enabled: false
+      enabled: true
       ingress:
         enabled: true
         hosts:
