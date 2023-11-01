@@ -1,0 +1,28 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: rancher
+  namespace: deafault
+spec:
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus
+        namespace: flux-system
+      version: 51.2.0
+  interval: 1m0s
+  releaseName: prometheus
+  targetNamespace: default
+  values:
+    alertmanager:
+      service:
+        type: LoadBalancer
+    grafana:
+      enabled: false
+    prometheus:
+      service:
+        type: LoadBalancer
