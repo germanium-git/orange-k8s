@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: cert-manager
 resources:
   - namespace.yaml
-  - jetstack-manager.yaml
-  - helmrelease-cert-manager.yaml
+
