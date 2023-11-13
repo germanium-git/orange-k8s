@@ -4,10 +4,8 @@ metadata:
   name: flux-to-slack
   namespace: flux-system
 spec:
-  summary: "cluster addons"
   eventMetadata:
-    env: "production"
-    cluster: "my-cluster"
+    cluster: "orange"
     region: "home"
   providerRef:
     name: slack-bot
