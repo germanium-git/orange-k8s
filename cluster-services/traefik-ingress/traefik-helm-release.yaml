@@ -20,3 +20,24 @@ spec:
     ingressRoute:
       dashboard:
         enabled: false
+    certResolvers:
+      letsencrypt:
+        email: petr.nemec@gmx.com
+        dnsChallenge:
+          provider: cloudflare
+          delayBeforeCheck: 30
+          resolvers:
+            - 1.1.1.1
+            - 8.8.8.8
+        storage: /data/acme.json
+    env:
+    - name: CF_API_EMAIL
+      valueFrom:
+        secretKeyRef:
+          name: cloudflare-api-email
+          key: email
+    - name: CF_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: cloudflare-api-key
+          key: apikey
