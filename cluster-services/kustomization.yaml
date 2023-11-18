@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - dummy-service
   - traefik-ingress
-  - prometheus
