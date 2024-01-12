@@ -31,9 +31,14 @@ flux create helmrelease traefik \
     --target-namespace=traefik-v2 \
     --interval=1m0s \
     --export > traefik-helm-release2.yaml
-
+```
 
 Don't forget to update the values so that the inbgress route for dashboard is not created by helm. Bu default there's another ingress route created with `ingressroutes.traefik.io/v1alpha1` API that did not work. Rather then trting to make it work I created ingress route using `ingressroutes.traefik.containo.us/v1alpha1` API - `ingressroute-dashboard.yaml` that makes the the dashboard accessible. More information on how to make the dashboard accessible can be found in the following paragraph.
+
+
+#### values.yaml
+https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml
+
 
 ### Dashboard
 

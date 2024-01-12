@@ -6,4 +6,5 @@ resources:
   - traefik-helm-repo.yaml
   - traefik-helm-release.yaml
   - ingressroute-dashboard.yaml
+  - ingressroute-metrics.yaml
   - middleware-dashboard.yaml

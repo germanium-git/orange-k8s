@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-metrics
+  namespace: traefik-v2
+
+spec:
+  entryPoints:
+    - web
+
+  routes:
+    - match: Host(`traefikmetrics.germanium.home`) || PathPrefix(`/metrics`)
+      kind: Rule
+      services:
+        - name: prometheus@internal
+          kind: TraefikService
