@@ -1,4 +1,6 @@
-# Prometheus
+# Prometheus (Obsolete)
+
+Prometheus has been migrated to ArgoCD.
 
 ## Installation
 
