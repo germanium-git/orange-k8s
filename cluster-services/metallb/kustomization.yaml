@@ -5,3 +5,4 @@ kind: Kustomization
 namespace: metallb-system
 resources:
   - address-pool.yaml
+  - l2advertisment.yaml
