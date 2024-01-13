@@ -1,7 +1,7 @@
 apiVersion: notification.toolkit.fluxcd.io/v1beta2
 kind: Alert
 metadata:
-  name: flux-to-slack
+  name: flux-to-slack-errors
   namespace: flux-system
 spec:
   eventMetadata:

@@ -1,0 +1,14 @@
+apiVersion: notification.toolkit.fluxcd.io/v1beta2
+kind: Alert
+metadata:
+  name: flux-to-slack-github
+  namespace: flux-system
+spec:
+  eventMetadata:
+    cluster: "orange"
+    region: "home"
+  providerRef:
+    name: slack-bot
+  eventSources:
+    - kind: GitRepository
+      name: '*'
