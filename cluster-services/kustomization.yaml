@@ -3,5 +3,6 @@ kind: Kustomization
 resources:
   - metallb
   - metric-server
+  - nfs-provisioner
   - traefik-ingress
 # - prometheus
