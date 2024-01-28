@@ -47,7 +47,7 @@ data:
     #                            INPUT PLUGINS                                    #
     ###############################################################################
 
-    # Read metrics about network interfaces and the resopective traffic
+    # Read metrics about network interfaces and the resopective traffic - SRX
     [[inputs.snmp]]
     agents = [ "172.31.1.1:161" ]
     version = 2
@@ -67,6 +67,28 @@ data:
       [[inputs.snmp.table.field]]
         name = "ifName"
         oid = "IF-MIB::ifName"
+        is_tag = true
+
+    # Read metrics about network interfaces and the resopective traffic - Dell Switch
+    [[inputs.snmp]]
+    agents = [ "172.31.1.197:161" ]
+    version = 1
+    community = "public"
+    name = "snmp"
+
+    [[inputs.snmp.field]]
+      name = "hostname"
+      oid = "RFC1213-MIB::sysName.0"
+      is_tag = true
+
+    [[inputs.snmp.table]]
+      name = "snmp"
+      inherit_tags = [ "hostname" ]
+      oid = "IF-MIB::ifXTable"
+
+      [[inputs.snmp.table.field]]
+        name = "ifIndex"
+        oid = "IF-MIB::ifIndex"
         is_tag = true
 
     # Read metrics about the wireless interface from the LTE modem
