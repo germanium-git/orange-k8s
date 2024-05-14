@@ -5,7 +5,17 @@
 The applications running on the cluster are deployed by FluxCD.\
 Disclaimer: ...That is no longer the case, as ArgoCD has stepped in as FluxCD's successor (more information can be found at the bottom of this page)
 
+### Applications installed by FluxCD
+- dnsutils
+- motioneye
+- metric-server
+- nfs-provisioner
+- telegraf
+- test-pvc
+- traefik
+
 ### Personal Access Token
+The PAT is needed to bootsrat the server and let FluxCD talk to the GH repo.
 
 ![token](https://raw.githubusercontent.com/germanium-git/orange-k8s/main/pictures/image.png)
 
