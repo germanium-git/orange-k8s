@@ -52,3 +52,12 @@ Allow SNMP query for the each IP address of the K8s nodes on the target router.
 ```
 set snmp community public clients <IP address>
 ```
+
+
+## Test SNMP
+
+Dell DGS-1100-08
+```
+snmpwalk -v2c -c public 172.31.1.197
+snmpwalk -v2c -c public 172.31.1.197 IF-MIB::ifXTable
+```
