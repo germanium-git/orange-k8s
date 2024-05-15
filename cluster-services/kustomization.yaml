@@ -4,5 +4,5 @@ resources:
 # - metallb
 # - metric-server
 # - nfs-provisioner
-  - traefik-ingress
+# - traefik-ingress
 # - prometheus
