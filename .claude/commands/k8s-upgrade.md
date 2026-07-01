@@ -21,9 +21,11 @@ Follow these steps in order. Run each SSH command via the Bash tool. Stop and re
 
 ### Step 0 — Determine Target Version
 
+First check the current cluster version (`kubectl get nodes`). **kubeadm does not support skipping minor versions** — it can only upgrade one minor version at a time (e.g. 1.32 → 1.33, never 1.32 → 1.34 directly). If the user asks for a target more than one minor ahead of the current version, tell them this isn't supported and confirm upgrading to current+1 as this run's target; the remaining minors need separate, later runs.
+
 If the user has not provided a target version in `$ARGUMENTS`, ask:
-- Target **minor** version (e.g. `1.31`)
-- Target **patch** version (e.g. `1.31.5`)
+- Target **minor** version (e.g. `1.31`) — default to current+1
+- Target **patch** version (e.g. `1.31.5`) — if unsure, check `apt-cache madison kubeadm` after switching the repo (step 3a–3c) and default to the latest patch listed
 
 Derive the apt package suffix: `<patch>-1.1` (e.g. `1.31.5-1.1`).
 
@@ -195,5 +197,5 @@ ssh -i ~/.ssh/orangePiMac petr@172.31.1.50 "sudo KUBECONFIG=/etc/kubernetes/admi
 ```
 
 - All three nodes must show `Ready` with the new version.
-- Report any pods not in Running/Completed state.
+- Report any pods not in Running/Completed state. Pods rescheduled during a drain (e.g. still `Init`) can take a minute or so to settle — re-run the check once before treating it as a real problem.
 - Summarize the upgrade result to the user.
