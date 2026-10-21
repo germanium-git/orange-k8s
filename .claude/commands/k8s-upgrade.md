@@ -44,6 +44,20 @@ ssh -i ~/.ssh/orangePiMac petr@172.31.1.50 "sudo KUBECONFIG=/etc/kubernetes/admi
 - Any non-daemonset pod not in Running/Completed state must be investigated before proceeding.
 - Abort and report if the cluster is unhealthy.
 
+**1b. Container runtime compatibility:**
+
+The kubelet only supports specific containerd versions, and support for old ones is dropped (e.g. Kubernetes 1.36 dropped containerd 1.x entirely). The cluster ran 1.33→1.36 on containerd 1.6.22 before this was noticed, which caused a kubelet memory leak on orange2. Check the runtime on every node:
+
+```bash
+ssh -i ~/.ssh/orangePiMac petr@172.31.1.50 "sudo KUBECONFIG=/etc/kubernetes/admin.conf kubectl get nodes -o custom-columns=NAME:.metadata.name,KUBELET:.status.nodeInfo.kubeletVersion,RUNTIME:.status.nodeInfo.containerRuntimeVersion"
+```
+
+Compare against the Kubernetes support matrix at https://containerd.io/releases/ for `${MINOR}`. If the installed containerd is not listed as supported for the target minor, stop and tell the user — containerd must be upgraded first (before the kubelet).
+
+containerd is installed as plain binaries (not apt): `/usr/local/bin/containerd*`, `/usr/local/sbin/runc`, unit at `/usr/local/lib/systemd/system/containerd.service`, config `/etc/containerd/config.toml`. Upgrade one node at a time (workers first, orange3 as canary): cordon → stop kubelet + containerd → back up to `/root/containerd-<old>-backup` → extract the `linux-arm64` tarball into `/usr/local` → install the runc version from containerd's `script/setup/runc-version` → `systemctl daemon-reload` → reboot → verify → uncordon. Do **not** drain orange2: its pods don't fit on orange3 and the `n8n` PDB allows 0 disruptions; restarting pods in place via the reboot is fine. Take an etcd snapshot before upgrading orange1.
+
+Also make sure the sandbox (pause) image in containerd's config matches `sudo kubeadm config images list | grep pause` for the target version.
+
 ### Step 2 — Confirm Version Availability
 
 After updating the repo in step 3a–3c the new packages become visible. Run a pre-check now to see what the current repo offers:
@@ -198,4 +212,6 @@ ssh -i ~/.ssh/orangePiMac petr@172.31.1.50 "sudo KUBECONFIG=/etc/kubernetes/admi
 
 - All three nodes must show `Ready` with the new version.
 - Report any pods not in Running/Completed state. Pods rescheduled during a drain (e.g. still `Init`) can take a minute or so to settle — re-run the check once before treating it as a real problem.
+- Update `cri-tools` (crictl) on all nodes to the new minor: `sudo apt-get install -y --only-upgrade cri-tools`.
+- `kubeadm upgrade apply` renews all cluster certificates, including `/etc/kubernetes/admin.conf`. Remind the user to copy the fresh `admin.conf` to their local kubeconfig (`~/.kube/config-files/orange-backup.yaml`, with cluster/user/context renamed to `orange`) — the old client cert expires one year after the previous renewal.
 - Summarize the upgrade result to the user.
