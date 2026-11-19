@@ -10,9 +10,12 @@ the [argocd](https://github.com/germanium-git/argocd) repository. FluxCD, which 
 was removed from the cluster on 2026-11-07 (manifests remain in git history).
 
 **Node IPs:** master `172.31.1.50`, workers `172.31.1.51`, `172.31.1.52` (all arm64 – check images for arm64)
-**NFS server:** `172.31.1.6:/volume1/nfs` (Synology NAS, StorageClass `nfs-atlas`)
+**NFS server:** `172.31.1.6:/volume1/nfs` (UGREEN NAS "Atlas", two mirrored disks, StorageClass `nfs-atlas`)
+**UPS:** APC Back-UPS CS 500, USB to the NAS; the NAS runs the NUT server
 
 ## Contents
 
 - `hardware.md`, `Installation-k8s.md`, `installation-terminal.md` – cluster build and installation notes
 - `.claude/commands/k8s-upgrade.md` – `/k8s-upgrade` procedure for Kubernetes version upgrades
+- `backup-restore/` – node configuration for backups and power resilience; the full documentation is on
+  XWiki (`Projects/Orange K8s/Backup and Restore`)
