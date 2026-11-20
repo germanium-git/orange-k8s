@@ -1,0 +1,44 @@
+# ClusterConfiguration of the orange cluster, as stored in ConfigMap kube-system/kubeadm-config.
+# kubeadm regenerates the static pod manifests on orange1 from it during "kubeadm upgrade", so flags
+# set here survive upgrades. Contains no secrets. See control-plane.md for why each extraArg is set.
+apiServer:
+  extraArgs:
+  - name: authorization-mode
+    value: Node,RBAC
+apiVersion: kubeadm.k8s.io/v1beta4
+caCertificateValidityPeriod: 87600h0m0s
+certificateValidityPeriod: 8760h0m0s
+certificatesDir: /etc/kubernetes/pki
+clusterName: kubernetes
+controllerManager:
+  extraArgs:
+  - name: leader-elect-lease-duration
+    value: 60s
+  - name: leader-elect-renew-deadline
+    value: 40s
+  - name: leader-elect-retry-period
+    value: 10s
+dns: {}
+encryptionAlgorithm: RSA-2048
+etcd:
+  local:
+    dataDir: /var/lib/etcd
+    extraArgs:
+    - name: backend-batch-interval
+      value: 1s
+imageRepository: registry.k8s.io
+kind: ClusterConfiguration
+kubernetesVersion: v1.36.2
+networking:
+  dnsDomain: cluster.local
+  podSubnet: 10.244.0.0/16
+  serviceSubnet: 10.96.0.0/12
+proxy: {}
+scheduler:
+  extraArgs:
+  - name: leader-elect-lease-duration
+    value: 60s
+  - name: leader-elect-renew-deadline
+    value: 40s
+  - name: leader-elect-retry-period
+    value: 10s
