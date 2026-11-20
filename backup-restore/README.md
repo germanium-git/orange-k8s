@@ -13,6 +13,7 @@ Backups, restore procedures and power resilience for the `orange` cluster.
 | Documentation and restore runbooks | XWiki (link above) |
 | Kubernetes manifests for the backup jobs | `apps/backup` in [germanium-git/argocd](https://github.com/germanium-git/argocd) |
 | Node configuration (NUT client, kubelet shutdown settings) | `node-config/` in this folder (added in step 6) |
+| Control-plane flags that reduce etcd disk writes, full kubeadm ClusterConfiguration | [`node-config/control-plane.md`](node-config/control-plane.md) |
 | Secrets (restic password, Google Drive token) | Bitwarden, and SealedSecrets in the argocd repo |
 
 No passwords, tokens or keys are stored in this folder.
